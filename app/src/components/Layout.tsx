@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { PreviewBanner } from "./PreviewBanner";
-import { ModeSwitch } from "./ModeSwitch";
-import { useAppMode } from "../context/AppModeContext";
+import { ParentToolsButton } from "./ParentToolsButton";
+import { useParentAccess } from "../context/ParentAccessContext";
 
 const SHARED_LINKS = [
   { to: "/", label: "Today", end: true },
@@ -13,8 +13,10 @@ const SHARED_LINKS = [
   { to: "/kids-teach-kids", label: "Kids Teach Kids", end: false },
 ];
 
-// Family and the "about this preview" doc are parent-only — a kid handed
-// the device shouldn't land on billing/progress or the pitch disclosure.
+// Family and the "about this preview" doc are the only parent-only pages —
+// everything a kid needs to actually join class lives in SHARED_LINKS above
+// with zero gate, per the fix here: joining class must never require
+// unlocking anything first.
 const PARENT_ONLY_LINKS = [
   { to: "/family", label: "Family", end: false },
   { to: "/about", label: "About this preview", end: false },
@@ -31,8 +33,8 @@ export interface LayoutProps {
 /** Persistent header/nav + footer shell wrapping every route. */
 export function Layout({ children }: LayoutProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const { mode } = useAppMode();
-  const navLinks = mode === "parent" ? [...SHARED_LINKS, ...PARENT_ONLY_LINKS] : SHARED_LINKS;
+  const { unlocked } = useParentAccess();
+  const navLinks = unlocked ? [...SHARED_LINKS, ...PARENT_ONLY_LINKS] : SHARED_LINKS;
 
   return (
     <div className={styles.shell}>
@@ -60,7 +62,7 @@ export function Layout({ children }: LayoutProps) {
           </nav>
 
           <div className={styles.headerRight}>
-            <ModeSwitch />
+            <ParentToolsButton />
             <button
               type="button"
               className={styles.menuToggle}

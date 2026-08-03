@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { PageHeader } from "../components/PageHeader";
 import { Surface } from "../components/Surface";
 import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
-import { useAppMode } from "../context/AppModeContext";
+import { useParentAccess } from "../context/ParentAccessContext";
 import styles from "./Family.module.css";
 
 // Sample multi-child progress data — illustrating the parent-side view a
@@ -15,13 +16,19 @@ const SAMPLE_CHILDREN = [
 ];
 
 export function Family() {
-  const { enterKidMode } = useAppMode();
+  const { lock } = useParentAccess();
+  const navigate = useNavigate();
+
+  function handOff() {
+    lock();
+    navigate("/");
+  }
 
   return (
     <div className={styles.page}>
       <PageHeader
         title="Family"
-        subtitle="Parent-only view — progress, plan, and a quick hand-off into kid mode. Sample data, standing in for BMA's real progress dashboard."
+        subtitle="Parent-only view — progress and plan. Sample data, standing in for BMA's real progress dashboard. Joining class never requires visiting this page."
       />
 
       <div className={styles.grid}>
@@ -33,8 +40,8 @@ export function Family() {
               <Badge tone="gold">{child.streakDays}-day streak</Badge>
             </div>
             <p className={styles.next}>Next: {child.nextSession}</p>
-            <Button variant="secondary" onClick={enterKidMode}>
-              Hand device to {child.name}
+            <Button variant="secondary" onClick={handOff}>
+              Done — lock &amp; hand device to {child.name}
             </Button>
           </Surface>
         ))}

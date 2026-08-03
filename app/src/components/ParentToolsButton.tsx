@@ -1,22 +1,31 @@
 import { useState } from "react";
-import { useAppMode } from "../context/AppModeContext";
-import styles from "./ModeSwitch.module.css";
+import { useNavigate } from "react-router-dom";
+import { useParentAccess } from "../context/ParentAccessContext";
+import styles from "./ParentToolsButton.module.css";
 
 /**
- * Header control for the parent/kid mode split (see AppModeContext.tsx).
- * Kid mode needs no gate to enter (a parent handing over the device); a
- * kid trying to get back to the parent view needs the demo PIN.
+ * Header control gating Family/billing behind a PIN — the only gate in the
+ * app. Joining today's class is never behind this; see
+ * ParentAccessContext.tsx for why.
  */
-export function ModeSwitch() {
-  const { mode, enterKidMode, exitKidMode } = useAppMode();
+export function ParentToolsButton() {
+  const { unlocked, unlock, lock } = useParentAccess();
+  const navigate = useNavigate();
   const [showPinPrompt, setShowPinPrompt] = useState(false);
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);
 
-  if (mode === "parent") {
+  if (unlocked) {
     return (
-      <button type="button" className={styles.button} onClick={enterKidMode}>
-        Hand to kid mode
+      <button
+        type="button"
+        className={styles.button}
+        onClick={() => {
+          lock();
+          navigate("/");
+        }}
+      >
+        Lock parent tools
       </button>
     );
   }
@@ -27,11 +36,12 @@ export function ModeSwitch() {
         className={styles.pinForm}
         onSubmit={(e) => {
           e.preventDefault();
-          const ok = exitKidMode(pin);
+          const ok = unlock(pin);
           if (ok) {
             setShowPinPrompt(false);
             setPin("");
             setError(false);
+            navigate("/family");
           } else {
             setError(true);
           }
@@ -59,7 +69,7 @@ export function ModeSwitch() {
 
   return (
     <button type="button" className={styles.button} onClick={() => setShowPinPrompt(true)}>
-      Parent mode
+      Parent tools
     </button>
   );
 }

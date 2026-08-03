@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { PwaInstallProvider } from "./context/PwaInstallContext";
-import { AppModeProvider } from "./context/AppModeContext";
+import { ParentAccessProvider } from "./context/ParentAccessContext";
 import { ParentOnlyRoute } from "./components/ParentOnlyRoute";
 import { Home } from "./pages/Home";
 import { Schedule } from "./pages/Schedule";
@@ -15,7 +15,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
   return (
-    <AppModeProvider>
+    <ParentAccessProvider>
       <PwaInstallProvider>
         <ScrollToTop />
         <Layout>
@@ -45,7 +45,7 @@ function App() {
         <InstallPrompt />
         <UpdateToast />
       </PwaInstallProvider>
-    </AppModeProvider>
+    </ParentAccessProvider>
   );
 }
 
