@@ -105,6 +105,11 @@ export function Home() {
           <a href={DEMO_ZOOM_JOIN_URL} target="_blank" rel="noreferrer" className={styles.joinLink}>
             <Button variant="primary">Join on Zoom</Button>
           </a>
+          {upcoming.session.externalLink ? (
+            <a href={upcoming.session.externalLink.url} target="_blank" rel="noreferrer" className={styles.joinLink}>
+              <Button variant="ghost">{upcoming.session.externalLink.label}</Button>
+            </a>
+          ) : null}
           <Link to="/schedule">
             <Button variant="secondary">See full schedule</Button>
           </Link>

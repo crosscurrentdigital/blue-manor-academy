@@ -26,6 +26,17 @@ export interface ScheduledSession {
   durationMinutes: number;
   ageRange: string;
   description: string;
+  /**
+   * Optional secondary deep link for a session with its own between-class
+   * platform — e.g. Chess Club's ChessKid link below. Same reasoning as
+   * DEMO_ZOOM_JOIN_URL: ChessKid has no public embed API/SDK for
+   * third-party apps (checked directly — Chess.com's public API covers
+   * chess.com game/stats data, not ChessKid), so this links OUT to
+   * ChessKid rather than attempting to embed play inside this app. Points
+   * to ChessKid's public homepage, not a real BMA club URL, since BMA
+   * hasn't confirmed whether they run a ChessKid Club/Classroom at all.
+   */
+  externalLink?: { label: string; url: string };
 }
 
 export const AUTHOR_TIMEZONE = "America/Denver";
@@ -69,6 +80,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 8-14",
     description: "Casual play and light instruction — bring your own board or play on-screen.",
+    externalLink: { label: "Practice on ChessKid", url: "https://www.chesskid.com/" },
   },
   {
     id: "animation-club",

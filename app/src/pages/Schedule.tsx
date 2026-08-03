@@ -37,9 +37,16 @@ export function Schedule() {
               <p className={styles.rowWhen}>{formatForViewer(at)}</p>
               <p className={styles.rowDescription}>{session.description}</p>
             </div>
-            <a href={DEMO_ZOOM_JOIN_URL} target="_blank" rel="noreferrer" className={styles.rowJoin}>
-              <Button variant="secondary">Join on Zoom</Button>
-            </a>
+            <div className={styles.rowActions}>
+              <a href={DEMO_ZOOM_JOIN_URL} target="_blank" rel="noreferrer" className={styles.rowJoin}>
+                <Button variant="secondary">Join on Zoom</Button>
+              </a>
+              {session.externalLink ? (
+                <a href={session.externalLink.url} target="_blank" rel="noreferrer" className={styles.rowJoin}>
+                  <Button variant="ghost">{session.externalLink.label}</Button>
+                </a>
+              ) : null}
+            </div>
           </Surface>
         ))}
       </div>

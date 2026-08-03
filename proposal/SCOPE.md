@@ -97,6 +97,30 @@ per-instructor accounts host classes — this determines whether
 "one-tap join" is a single predictable link pattern or something we need
 to look up per-class from BMA's own scheduling data.
 
+### Chess Club specifically — same deep-link pattern, a different vendor
+
+Raised directly during scoping: could Chess Club integrate with
+**ChessKid** (Chess.com's kids' platform — lessons, puzzles, and a Club/
+Classroom management tool most scholastic chess programs already use)?
+Checked directly: **ChessKid has no public embed API or SDK for
+third-party apps.** Chess.com's own public API covers chess.com game/
+stats data, not ChessKid — unsurprising, since ChessKid is COPPA-locked-
+down specifically because its users are kids. Embedding actual gameplay
+inside this app isn't realistically buildable without ChessKid's direct
+cooperation, and that's a real vendor conversation to have, not something
+to assume into scope or price against.
+
+**What is buildable, using the exact same pattern as the Zoom link
+above:** a secondary deep link out to ChessKid from the Chess Club
+schedule card — practice puzzles and casual games between live sessions,
+not embedded inside our UI. This requires BMA to actually run a ChessKid
+Club/Classroom (a free tier exists — 20 free gold accounts for a new
+classroom teacher, an Enterprise tier at 100+ registered kids) — **not
+yet confirmed whether BMA has one**. Same discipline as everything else
+unconfirmed in this proposal: don't assume it, ask directly, and the
+Chess Club card simply doesn't show the ChessKid button if the answer is
+no.
+
 ## e. The compliance layer this build introduces — said plainly, not buried
 
 BMA serves children under 13 directly, not just their parents. A new
@@ -133,6 +157,9 @@ competes with them.
   resolves.
 - **Zoom account details** — tier, single vs. per-instructor accounts
   (SCOPE.md section d).
+- **Whether BMA runs a ChessKid Club/Classroom for Chess Club** (SCOPE.md
+  section d) — gates whether the Chess Club schedule card shows a
+  ChessKid link at all.
 - **Whether LaSoft is still actively engaged**, and whether they'd be
   building against the same systems — worth knowing up front rather than
   learning mid-project that two vendors are touching the same API.
