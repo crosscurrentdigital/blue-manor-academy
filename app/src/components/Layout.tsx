@@ -44,7 +44,7 @@ export function Layout({ children }: LayoutProps) {
         <div className={styles.headerInner}>
           <NavLink to="/" className={styles.brand}>
             <img src={logoUrl} alt="Blue Manor Academy" className={styles.brandLogo} />
-            <span className={styles.brandName}>Companion</span>
+            <span className={styles.brandName}>Blue Manor Academy Companion</span>
           </NavLink>
 
           <nav className={styles.nav} aria-label="Primary">
