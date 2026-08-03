@@ -32,14 +32,17 @@
   outline-offset: 2px;
 }
 
+/* Glossy gold gradient pill — matches the real site's primary CTAs exactly
+   ("Start a Free 14-day Trial," "Visit Academy," "Add Class"), navy text
+   on gold rather than the reverse. */
 .primary {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-gold) 85%, white) 0%, var(--color-gold) 100%);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--color-accent-strong);
+  background: linear-gradient(180deg, var(--color-gold) 0%, var(--color-gold-strong) 100%);
 }
 
 .secondary {

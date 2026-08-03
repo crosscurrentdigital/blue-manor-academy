@@ -44,11 +44,15 @@
   --color-accent: #242261;
   --color-accent-strong: #16144a;
   --color-accent-contrast: #f7f4ec;
-  /* Named --color-gold from the earlier placeholder palette; value is now
-     the real logo's green (sampled directly from the file) — kept the
-     name to avoid a churn-y rename across every component that reads it. */
-  --color-gold: #0fa34d;
-  --color-gold-strong: #0c7e3c;
+  /* The real site's actual UI accent, confirmed from live screenshots —
+     gold/orange pill buttons ("Start a Free 14-day Trial," "Add Class,"
+     "Visit Academy"), not the logo's green. Green (below, --color-brand-green)
+     only appears in the logo itself and one decorative heading on the real
+     site, not as a general interactive color — an earlier pass here got
+     that backwards and painted everything green. */
+  --color-gold: #e0932c;
+  --color-gold-strong: #c07a1f;
+  --color-brand-green: #0fa34d;
 
   --color-success: #0fa34d;
   --color-warning: #a9840f;
