@@ -41,6 +41,17 @@ export interface ScheduledSession {
    * hasn't confirmed whether they run a ChessKid Club/Classroom at all.
    */
   externalLink?: { label: string; url: string };
+  /**
+   * The real recurrence text as actually seen on a live enrolled family's
+   * schedule (e.g. "Year-Round, 3rd Monday, 1 PM CST" — see
+   * ../../../proposal/AUDIT.md section 10). Shown as-is for authenticity.
+   * The weekday/startHour/startMinute fields above are a simplified
+   * weekly approximation for this demo's join-flow simulation — a real
+   * build needs Nth-weekday-of-month and seasonal-date-range recurrence,
+   * which this simple weekly scheduler doesn't implement (a real, priced
+   * scope item, not a bug here).
+   */
+  realCadence?: string;
 }
 
 export const AUTHOR_TIMEZONE = "America/Denver";
@@ -51,84 +62,122 @@ export const AUTHOR_TIMEZONE = "America/Denver";
 // mock URL per class, so the demo never implies we have real meeting IDs.
 export const DEMO_ZOOM_JOIN_URL = "https://zoom.us/test";
 
+// This list is a real enrolled family's actual Classes & Clubs schedule,
+// seen directly (see proposal/AUDIT.md section 10) — a step up from an
+// earlier version of this file that used BMA's general marketing icon row
+// instead of a real family's real enrolled activities. Real cadence text
+// carried through in realCadence; weekday/time fields below are this
+// demo's simplified weekly approximation of that real cadence (see the
+// realCadence field's doc comment on why).
 export const SAMPLE_SCHEDULE: ScheduledSession[] = [
   {
-    id: "coding-club",
-    title: "Coding Club",
-    kind: "club",
+    id: "student-qa",
+    title: "Student Q&A Session",
+    kind: "mentorship",
     weekday: 1,
-    startHour: 9,
-    startMinute: 0,
-    durationMinutes: 45,
-    ageRange: "Ages 8-15",
-    description: "Live project-based coding, working alongside other students.",
+    startHour: 14,
+    startMinute: 30,
+    durationMinutes: 30,
+    ageRange: "All ages",
+    description: "Open questions, live — bring whatever you're stuck on.",
+    realCadence: "Year-Round, Monday, 2:30 PM CST",
   },
   {
     id: "chess-club",
     title: "Chess Club",
     kind: "club",
-    weekday: 2,
-    startHour: 15,
-    startMinute: 30,
+    weekday: 3,
+    startHour: 10,
+    startMinute: 0,
     durationMinutes: 45,
     ageRange: "Ages 8-14",
     description: "Casual play and light instruction — bring your own board or play on-screen.",
     externalLink: { label: "Practice on ChessKid", url: "https://www.chesskid.com/" },
+    realCadence: "Year-Round, Wednesday, 10 AM CST",
+  },
+  {
+    id: "3d-modeling-club",
+    title: "3D Modeling Club",
+    kind: "club",
+    weekday: 3,
+    startHour: 14,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "Ages 12+",
+    description: "Design-your-own projects, CAD basics through a finished model.",
+    realCadence: "Year-Round, 3rd Wednesday, 2 PM CST",
+  },
+  {
+    id: "social-club",
+    title: "Social Club",
+    kind: "club",
+    weekday: 5,
+    startHour: 14,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "All ages",
+    description: "Structured, camera-on social time with other students.",
+    realCadence: "Year-Round, 1st Friday, 2 PM CST",
+  },
+  {
+    id: "stock-investing-class",
+    title: "Stock Investing Class",
+    kind: "class",
+    weekday: 5,
+    startHour: 14,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "Ages 12+",
+    description: "Following real markets together and learning the basics of investing.",
+    realCadence: "Year-Round, 3rd Friday, 2 PM CST",
+  },
+  {
+    id: "oration-class",
+    title: "Oration Class",
+    kind: "class",
+    weekday: 5,
+    startHour: 14,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "Ages 10+",
+    description: "Public speaking practice, live in front of a small group.",
+    realCadence: "Year-Round, 4th Friday, 2 PM CST",
   },
   {
     id: "crochet-club",
     title: "Crochet Club",
     kind: "club",
-    weekday: 2,
-    startHour: 14,
+    weekday: 1,
+    startHour: 13,
     startMinute: 0,
     durationMinutes: 45,
     ageRange: "Ages 8+",
     description: "Learn stitches and work on a project together, live.",
+    realCadence: "Year-Round, 3rd Monday, 1 PM CST",
   },
   {
-    id: "reading-club",
-    title: "Reading Club",
-    kind: "club",
-    weekday: 3,
-    startHour: 10,
-    startMinute: 0,
-    durationMinutes: 30,
-    ageRange: "All ages",
-    description: "A rotating chapter book, read together live every week.",
-  },
-  {
-    id: "stock-market-club",
-    title: "Stock Market Club",
-    kind: "club",
-    weekday: 4,
-    startHour: 16,
+    id: "foundations-of-illustration",
+    title: "Foundations of Illustration",
+    kind: "class",
+    weekday: 2,
+    startHour: 11,
     startMinute: 0,
     durationMinutes: 45,
-    ageRange: "Ages 12+",
-    description: "Following real markets together and learning the basics of investing.",
+    ageRange: "Ages 8+",
+    description: "Guided drawing fundamentals, live with other students.",
+    realCadence: "May-Aug, Tuesday, 11 AM CST",
   },
   {
-    id: "art-club",
-    title: "Art Club",
-    kind: "club",
-    weekday: 4,
+    id: "manners-etiquette",
+    title: "Manners & Etiquette: The Rules of Respectability",
+    kind: "class",
+    weekday: 2,
     startHour: 14,
     startMinute: 0,
     durationMinutes: 45,
-    ageRange: "Ages 6-12",
-    description: "Guided drawing and painting projects, live with other students.",
-  },
-  {
-    id: "manor-magazine",
-    title: "Manor Magazine",
-    kind: "club",
-    weekday: 5,
-    startHour: 12,
-    startMinute: 0,
-    durationMinutes: 30,
-    ageRange: "Ages 10+",
-    description: "Student-written and student-edited — a real venue for published work.",
+    ageRange: "All ages",
+    description: "Real-world etiquette, taught live and put into practice.",
+    realCadence: "Sept-Dec, Tuesday, 2 PM CST",
   },
 ];
 

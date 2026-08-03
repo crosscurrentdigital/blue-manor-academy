@@ -8,8 +8,8 @@ LaTulippe (founder/president) or whoever handles product decisions.
 **Before you pitch:**
 - Don't quote founder family size or HQ location as fact — public
   sources disagree (AUDIT.md section 8).
-- Don't quote current pricing/trial length without confirming — sources
-  disagree on 14 vs. 30 days (AUDIT.md section 6).
+- Pricing/trial length is now confirmed directly (14-day trial, AUDIT.md
+  sections 6 and 10) — safe to quote.
 - Don't quote a review-platform star rating — none was found (AUDIT.md
   section 7).
 - **Ask directly, early, whether LaSoft has already been asked about a

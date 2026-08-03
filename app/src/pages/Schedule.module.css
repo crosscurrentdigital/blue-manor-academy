@@ -41,9 +41,16 @@
 }
 
 .rowWhen {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-1);
   font-weight: 600;
   color: var(--color-accent);
+}
+
+.rowCadence {
+  margin: 0 0 var(--space-2);
+  font-size: 0.8rem;
+  color: var(--color-ink-faint);
+  font-style: italic;
 }
 
 .rowDescription {

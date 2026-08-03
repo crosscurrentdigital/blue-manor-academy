@@ -27,6 +27,13 @@
   color: var(--color-accent);
 }
 
+.heroCadence {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-ink-faint);
+  font-style: italic;
+}
+
 .heroDescription {
   margin: 0;
   color: var(--color-ink-soft);

@@ -11,9 +11,14 @@ import styles from "./Family.module.css";
 // dashboard (already built by LaSoft, per AUDIT.md section 2). This app
 // reads from that data, it doesn't replace it.
 const SAMPLE_CHILDREN = [
-  { name: "Jordan", grade: "4th grade", streakDays: 12, nextSession: "Art Club — Tue" },
-  { name: "Riley", grade: "1st grade", streakDays: 5, nextSession: "Early Reader Class — Mon" },
+  { name: "Jordan", grade: "4th grade", streakDays: 12, nextSession: "Chess Club — Wed" },
+  { name: "Riley", grade: "1st grade", streakDays: 5, nextSession: "Student Q&A Session — Mon" },
 ];
+
+// The real Parent Dashboard's own tab structure, seen directly (see
+// proposal/AUDIT.md section 10) — shown here for authenticity; only
+// Family itself is wired up in this demo, the rest are non-functional.
+const REAL_DASHBOARD_TABS = ["Billing & Student Access", "How to Use BMA", "Parent Library", "Calendar", "Contact"];
 
 export function Family() {
   const { lock } = useParentAccess();
@@ -30,6 +35,14 @@ export function Family() {
         title="Family"
         subtitle="Parent-only view — progress and plan. Sample data, standing in for BMA's real progress dashboard. Joining class never requires visiting this page."
       />
+
+      <Surface padding="sm" className={styles.tabRow}>
+        {REAL_DASHBOARD_TABS.map((tab) => (
+          <span key={tab} className={styles.tabPill}>
+            {tab}
+          </span>
+        ))}
+      </Surface>
 
       <div className={styles.grid}>
         {SAMPLE_CHILDREN.map((child) => (

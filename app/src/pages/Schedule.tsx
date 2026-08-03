@@ -23,10 +23,10 @@ export function Schedule() {
     <div className={styles.page}>
       <PageHeader
         title="This week's schedule"
-        subtitle="The clubs below are real, straight from Blue Manor Academy's own site — the day/time here is a sample, shown converted to your device's local time."
+        subtitle="A real enrolled family's actual Classes & Clubs schedule, seen directly — cadence shown as-is below each session. The day/time used for the live countdown is this demo's simplified weekly approximation, converted to your device's local time."
       />
 
-      <img src={clubsImageUrl} alt="Coding Club, Chess Club, Crochet Club, Reading Club, Stock Market Club, Art Club, Manor Magazine, and more" className={styles.clubsImage} />
+      <img src={clubsImageUrl} alt="Coding Club, Chess Club, Crochet Club, Reading Club, Stock Market Club, Art Club, Manor Magazine, and more — Blue Manor Academy's full club offering" className={styles.clubsImage} />
 
       <div className={styles.list}>
         {sessions.map(({ session, at }) => (
@@ -38,6 +38,7 @@ export function Schedule() {
               </div>
               <h3 className={styles.rowTitle}>{session.title}</h3>
               <p className={styles.rowWhen}>{formatForViewer(at)}</p>
+              {session.realCadence ? <p className={styles.rowCadence}>Real cadence: {session.realCadence}</p> : null}
               <p className={styles.rowDescription}>{session.description}</p>
             </div>
             <div className={styles.rowActions}>

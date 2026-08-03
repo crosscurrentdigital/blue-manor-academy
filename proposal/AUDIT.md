@@ -121,14 +121,15 @@ This is exactly the kind of open question this repo's prior audits price
 a short paid discovery spike to close (see PRICING.md item 1) rather than
 guess at.
 
-## 6. Pricing (last publicly confirmed, not verified live)
+## 6. Pricing (confirmed directly — see section 10)
 
 - **$25/student/month** — full Pre-K–12 curriculum.
 - **+$27/month** — optional add-on for live classes/clubs/mentorships.
 - **Family plan caps at $177/month** regardless of student count.
-- **14-day free trial** (one older post mentions a "30-day" trial —
-  the two disagree the same way Piesano's hours disagreed between
-  sources; confirm the current number before quoting it anywhere).
+- **14-day free trial** — confirmed directly from the live site's own
+  current header (section 10). A "30-Day" figure also seen came from an
+  older recorded tutorial video with a stale number, not the current
+  site — 14-day is current and safe to quote.
 
 ## 7. Reputation — mixed vintage, needs a fresh pull
 
@@ -174,3 +175,90 @@ screen and push notifications make meaningfully better, while a browser
 tab does not. See SCOPE.md for what we're proposing and — just as
 important — what we're deliberately not proposing (rebuilding anything
 LaSoft already owns).
+
+## 10. Direct observation update — the real logged-in product, seen live
+
+Everything below was confirmed directly (screen-share, not indirect
+sources) during an actual conversation with BMA — a real step up in
+confidence over sections 1-9, which were built from secondary sources
+this session's live-fetch tooling couldn't reach directly (see the intro
+methodology note). Superseding/correcting entries are called out
+explicitly rather than silently replacing what was there before.
+
+- **The logged-in app lives at `www.bluemanoracademy.com/accounts/*`, not
+  a separate `fe.` subdomain.** Section 3's property map listed
+  `fe.bluemanoracademy.com` as the likely logged-in app based on indirect
+  search-indexing evidence. Directly observed URLs (`/accounts/readers/`,
+  `/accounts/classes/setup/4100/`, `/accounts/credit_chart/1077/`,
+  `/accounts/choose_an_account/`) show the real logged-in product on the
+  main domain instead. Worth confirming directly whether `fe.` is a
+  legacy/parallel interface or simply wrong — don't state either as fact.
+- **A real "Choose an account" screen** exists for multi-child families —
+  a picker with per-child photo avatars (gold-dashed circle border) —
+  confirming BMA already has its own multi-child-profile UX, independent
+  of any parent/kid "mode" concept a companion app might add.
+- **The Parent Dashboard's real tab structure**: Billing & Student
+  Access, How to Use BMA, Parent Library, Calendar, Contact. Each child
+  gets a card with a glossy gold "Visit Academy" button and three
+  accordion sections — **Review & Customize** (edit profile, customize
+  curriculum, restrict library/mail/Kids-Teach-Kids, toggle
+  Kids-Teach-Kids/student-to-student email/comments/games on-off with
+  green switches), **Assign Work** (grade level, school days/week,
+  completion date, a points-remaining calculator), and **Progress
+  Report** (day/week/month/year views, per-grade-level completion
+  sliders). A separate **"Classes & Clubs"** button (glossy blue, not
+  gold — the one clearly confirmed non-gold interactive accent) expands
+  to the child's actual enrolled schedule.
+- **A real, confirmed class/club schedule with real cadence** — materially
+  more complete than the marketing icon row in section 1/5, and using a
+  recurrence pattern (year-round on an Nth weekday, or a seasonal date
+  range like "May-Aug") that a simple weekly-recurring scheduler doesn't
+  capture:
+
+  | Name | Cadence |
+  |---|---|
+  | Crochet Club | Year-Round, 3rd Monday, 1 PM CST |
+  | Student Q&A Session | Year-Round, Monday, 2:30 PM CST |
+  | Foundations of Illustration | May-Aug, Tuesday, 11 AM CST |
+  | Manners & Etiquette: The Rules of Respectability | Sept-Dec, Tuesday, 2 PM CST |
+  | Chess Club | Year-Round, Wednesday, 10 AM CST |
+  | 3D Modeling Club | Year-Round, 3rd Wednesday, 2 PM CST |
+  | Oration Class | Year-Round, 4th Friday, 2 PM CST |
+  | Social Club | Year-Round, 1st Friday, 2 PM CST |
+  | Stock Investing Class | Year-Round, 3rd Friday, 2 PM CST |
+
+  This is a real scope item for SCOPE.md section (d): a companion app's
+  scheduling logic needs to handle "Nth weekday of the month" and
+  seasonal date-range recurrence, not just a simple weekly repeat — a
+  materially different (and larger) problem than this demo's simplified
+  weekly model assumed.
+- **A Credit Chart** (`/accounts/credit_chart/`) — a real
+  high-school-credit tracking table (9th-12th grade + a "Diploma" column,
+  in a distinct blue) with per-subject point-to-credit-fraction math
+  (e.g., "500 pts = 1 credit" for core subjects, "1000 pts = 2 credits"
+  for electives) — a real feature confirming BMA has actual credit/
+  transcript tracking for high schoolers, not just a Pre-K-8 activity
+  tracker.
+- **A real Parent Library** (`/parent-library/`) with three sections:
+  **Books** (the founder's own book series — Revealing School, Education,
+  Character, Power), **Videos** (parenting content from Britton
+  LaTulippe — "Raising Children for Greatness," "Getting Your House in
+  Order," "Motivating Children" — plus a "How to Use Blue Manor Academy"
+  walkthrough), and **Printables** (a large, real library: seasonal
+  "Manor Mom Magazine" issues, per-grade scope-and-sequence sheets,
+  character/power questionnaires, merit/demerit sheets, responsibility
+  and etiquette charts, phonics/math/penmanship worksheets, and more).
+  This is a substantial, real content library a companion app should
+  surface a path to (even just deep-linking into it), not attempt to
+  rebuild.
+- **A "How to Use Blue Manor Academy" tutorial video series** exists with
+  a numbered lesson index: New Parent Information Meeting, Assign &
+  Schedule Student Learning, How BMA Teaches History, How BMA Forms
+  Christian Faith, How BMA Teaches Math, Internet Safety Features on BMA,
+  High School Credits.
+- **Trial length resolved**: the live site's own current header confirms
+  **14-day** (AUDIT.md section 6's primary figure); a "30-Day" figure
+  seen elsewhere came from an older recorded tutorial video still showing
+  a stale number, not the current live site — 14-day is current, 30-day
+  was a prior value. Safe to state 14-day as fact now, not "last publicly
+  confirmed" hedged.

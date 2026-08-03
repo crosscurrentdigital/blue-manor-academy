@@ -100,6 +100,9 @@ export function Home() {
           {formatForViewer(upcoming.at)}
           {minsUntil > 0 && minsUntil < 24 * 60 ? ` — in ${minsUntil < 60 ? `${minsUntil} min` : `${Math.round(minsUntil / 60)} hr`}` : null}
         </p>
+        {upcoming.session.realCadence ? (
+          <p className={styles.heroCadence}>Real cadence: {upcoming.session.realCadence}</p>
+        ) : null}
         <p className={styles.heroDescription}>{upcoming.session.description}</p>
         <div className={styles.heroActions}>
           <a href={DEMO_ZOOM_JOIN_URL} target="_blank" rel="noreferrer" className={styles.joinLink}>

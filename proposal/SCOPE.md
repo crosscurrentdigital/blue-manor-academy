@@ -170,12 +170,17 @@ competes with them.
 - **Whether LaSoft is still actively engaged**, and whether they'd be
   building against the same systems — worth knowing up front rather than
   learning mid-project that two vendors are touching the same API.
-- **Confirmation of current pricing/trial length** (AUDIT.md section 6)
-  and **which states currently accept BMA for ESA funding** (AUDIT.md
-  section 3) — the latter is a real, growing acquisition channel that a
-  "find a program near you" or ESA-reporting-friendly feature could
-  plausibly support later, worth a direct conversation even though it's
-  out of scope for this build.
+- **Which states currently accept BMA for ESA funding** (AUDIT.md
+  section 3) — a real, growing acquisition channel that a "find a
+  program near you" or ESA-reporting-friendly feature could plausibly
+  support later, worth a direct conversation even though it's out of
+  scope for this build.
+- **Real class/club schedule data and its recurrence pattern** (AUDIT.md
+  section 10) — confirmed real classes recur on an Nth-weekday-of-month
+  or seasonal-date-range basis, not simple weekly repeats, which is a
+  bigger scheduling-logic problem than this demo's simplified weekly
+  model assumed. Needs resolving before the "Today"/Schedule screens'
+  underlying logic can be priced as a fixed build.
 - **Founder/company facts to confirm before any customer-facing copy** —
   family size, and which HQ/location is current (AUDIT.md section 8).
 
