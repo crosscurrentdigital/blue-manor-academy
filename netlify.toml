@@ -1,0 +1,50 @@
+# Netlify configuration — Blue Manor Academy companion-app PREVIEW.
+#
+# STATUS: this is a self-initiated pitch preview, not a commissioned build.
+# Blue Manor Academy has not seen or requested this. It is fully functional
+# (real PWA install, real Web Push round trip, real offline lesson caching)
+# but every piece of content — the class/club schedule, the library reading,
+# the Kids Teach Kids channels — is illustrative sample data, not BMA's live
+# platform. See proposal/AUDIT.md's methodology note and proposal/SCOPE.md
+# section (f) for exactly what this does and does not touch. Marked noindex
+# below — do not remove unless this becomes an actual client-facing launch.
+
+[build]
+  base = "."
+  publish = "app/dist"
+  functions = "netlify/functions"
+  command = "npm --prefix app ci && npm --prefix app run build && mkdir -p app/dist/proposal && cp -r proposal/*.md app/dist/proposal/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "geolocation=()"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

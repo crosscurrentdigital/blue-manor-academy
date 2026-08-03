@@ -1,0 +1,23 @@
+.surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+}
+
+.raised {
+  background: var(--color-surface-raised);
+}
+
+.padNone {
+  padding: 0;
+}
+
+.padSm {
+  padding: var(--space-3);
+}
+
+.padLg {
+  padding: var(--space-7);
+}

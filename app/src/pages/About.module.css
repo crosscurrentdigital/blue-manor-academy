@@ -1,0 +1,19 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.card p {
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+.links {
+  font-weight: 600;
+}
+
+.contact {
+  font-size: 0.85rem;
+  color: var(--color-ink-faint);
+}

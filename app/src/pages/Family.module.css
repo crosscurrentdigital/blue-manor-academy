@@ -1,0 +1,51 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.name {
+  margin: 0;
+}
+
+.grade {
+  margin: 0;
+  color: var(--color-ink-faint);
+  font-size: 0.85rem;
+}
+
+.badges {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.next {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+}
+
+.billing {
+  max-width: 60ch;
+}
+
+.billingTitle {
+  margin: 0 0 var(--space-2);
+}
+
+.billingText {
+  margin: 0;
+  color: var(--color-ink-soft);
+}
