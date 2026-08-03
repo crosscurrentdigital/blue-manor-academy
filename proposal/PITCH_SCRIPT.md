@@ -46,9 +46,9 @@ LaTulippe (founder/president) or whoever handles product decisions.
 > starts. Offline access to the reading and audio content, since it's
 > literature-based and doesn't need a live connection — one of your own
 > reviewers already said using it on a computer all the time was more
-> friction than a tablet. Separate views for parent and kid, because a
-> parent needs billing and progress, and a kid just needs today's class
-> and their own channel."
+> friction than a tablet. And joining class needs zero gate — no PIN, no
+> mode to switch into. The only thing behind a lock is the Family view,
+> for billing and progress."
 
 ## 4. The honest complication (25 sec)
 

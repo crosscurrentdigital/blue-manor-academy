@@ -61,12 +61,19 @@ replace or duplicate it:
   Kids-Teach-Kids content from followed channels, streak/progress
   nudges tied to the existing gamification LaSoft built, and parent-side
   billing/renewal notices.
-- **Parent mode and kid mode as distinct, separate views** — not a
-  single generic screen. A parent needs billing, progress dashboards
-  (already exist server-side per AUDIT.md section 2 — this app should
-  read from that, not rebuild it), and multi-child management. A kid
-  needs the Today screen, the class join flow, and their own
-  Kids-Teach-Kids channel.
+- **Joining class needs zero gate; Family/billing is the one thing that
+  does.** Today, Schedule, Library, and Kids-Teach-Kids are always the
+  app's default, ungated view — a kid should never have to unlock
+  anything, switch a mode, or wait for a parent to hand off a device to
+  reach a live class that's starting. The only PIN-gated page is Family
+  (billing, progress dashboards — already exist server-side per AUDIT.md
+  section 2, this app should read from that, not rebuild it — and
+  multi-child management), reached via a small "Parent tools" control.
+  That gate is also the right place to actually confirm what's real: a
+  demo build tried the opposite design first (default to a "parent" view,
+  require an explicit hand-off into a "kid" one) and it was flagged
+  immediately as exactly the kind of blocker this proposal should not
+  introduce.
 
 ## d. The Zoom integration, specifically — two real approaches, one clear default
 

@@ -49,7 +49,8 @@ Everything in SCOPE.md section (c):
 - Push notification reminders (class starting soon, new peer content,
   progress/streak nudges, billing/renewal notices)
 - Offline caching of self-paced curriculum content
-- Separate parent and kid modes
+- A PIN-gated Family/billing view, with everything else (including
+  joining class) ungated by default
 - PWA install ("add to home screen") — live from day one, no store
   review required
 
@@ -120,7 +121,7 @@ yet.
   | Zoom deep-link join + timezone scheduling | Small–Medium | Well-understood problem, no SDK/review overhead |
   | Push notifications | Medium | Reuses the Web Push/VAPID pattern from this shop's prior builds (Piesano's, Elks Theatre) rather than starting from zero |
   | Offline curriculum caching | Medium–Large | New pattern for this shop — no prior build has done offline content caching |
-  | Parent/kid dual-mode | Medium | Real auth/role separation, not a toggle |
+  | PIN-gated Family/billing view | Small–Medium | Simpler than real auth/role separation — one gate on one page, not a mode covering the whole app |
   | PWA polish (icons, install flow) | Small | Fully repeatable pattern at this point |
   | COPPA compliance implementation | Medium | Sized by what the discovery spike's legal review finds |
 
