@@ -270,4 +270,7 @@ explicitly rather than silently replacing what was there before.
   timeline. This is now demonstrated as a real, working feature in this
   demo's own Library page (see SCOPE.md) — not a claim that it replaces
   whatever BMA ends up shipping, but proof the idea is genuinely
-  buildable client-side with no backend dependency.
+  buildable client-side with no backend dependency. The demo also has a
+  real, device-tracked daily visit streak (not a sample number) on the
+  Today screen — the same kind of lightweight engagement signal, built
+  the same way, with no backend required.

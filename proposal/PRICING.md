@@ -33,13 +33,15 @@ genuinely more unknowns to close before a fixed build number is honest:
 ## 2. The build — $11,500, fixed
 
 Priced above the $6,900 Piesano's build because this scope includes
-genuinely more surface area: two distinct user roles (parent/kid) instead
-of one, timezone-aware live-class scheduling for an international
-audience, offline content caching (a meaningfully bigger engineering
-lift than a cart-and-checkout flow), integration against a third party's
-existing (undocumented, pre-spike) API rather than data we control
-ourselves, and the added compliance work COPPA/app-store child policies
-require that a restaurant ordering app never touches.
+genuinely more surface area: a PIN-gated Family view for billing/progress
+sitting alongside an always-open kid-safe default (not two separate
+mode-switched apps, but still real access-control surface), timezone-aware
+live-class scheduling for an international audience, offline content
+caching (a meaningfully bigger engineering lift than a cart-and-checkout
+flow), integration against a third party's existing (undocumented,
+pre-spike) API rather than data we control ourselves, and the added
+compliance work COPPA/app-store child policies require that a restaurant
+ordering app never touches.
 
 Everything in SCOPE.md section (c):
 

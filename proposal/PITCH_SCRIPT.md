@@ -1,14 +1,18 @@
-# Blue Manor Academy — Pitch Script (scoping stage)
+# Blue Manor Academy — Pitch Script (live demo)
 
-Target: ~3 minutes. Unlike the Piesano's pitch in this repo, **this is
-scoping-stage narration, not a live demo** — no build has started, so
-don't imply anything shown is already working. Aimed at Britton
-LaTulippe (founder/president) or whoever handles product decisions.
+Target: ~3 minutes, delivered alongside a live walkthrough of the actual
+working demo app (`../app/`) — real recurring-schedule engine, real
+`.ics`/calendar export, real offline library reading with resume-where-
+you-left-off, a real device-tracked visit streak, and a real PIN-gated
+Family view. This is no longer scoping-stage narration — say so plainly,
+and let the demo carry the "this is real, not a mockup" weight instead of
+hedging around it. Aimed at Britton LaTulippe (founder/president) or
+whoever handles product decisions.
 
 **Before you pitch:**
 - Don't quote founder family size or HQ location as fact — public
   sources disagree (AUDIT.md section 8).
-- Pricing/trial length is now confirmed directly (14-day trial, AUDIT.md
+- Pricing/trial length is confirmed directly (14-day trial, AUDIT.md
   sections 6 and 10) — safe to quote.
 - Don't quote a review-platform star rating — none was found (AUDIT.md
   section 7).
@@ -39,16 +43,21 @@ LaTulippe (founder/president) or whoever handles product decisions.
 ## 3. What we'd build (60 sec)
 
 > "Not a rebuild — a companion app that sits next to what LaSoft already
-> built, not on top of it. A 'Today' screen: what's due in the
-> curriculum, what class or club is happening today, one tap to join —
-> and it launches Zoom directly, with the time shown correctly no matter
-> where the family lives. Push notification fifteen minutes before class
-> starts. Offline access to the reading and audio content, since it's
+> built, not on top of it. Let me just show you — [switch to the demo]
+> — a 'Today' screen: what's due in the curriculum, what class or club is
+> happening today, one tap to join, and it launches Zoom directly, with
+> the time shown correctly no matter where the family lives, including
+> your real cadence — third Monday, year-round, whatever the actual
+> pattern is. Push notification fifteen minutes before class starts.
+> Offline access to the reading and audio content, since it's
 > literature-based and doesn't need a live connection — one of your own
 > reviewers already said using it on a computer all the time was more
-> friction than a tablet. And joining class needs zero gate — no PIN, no
-> mode to switch into. The only thing behind a lock is the Family view,
-> for billing and progress."
+> friction than a tablet. It remembers exactly where a kid left off in a
+> book, across days, offline or on — that's the piece you told me you're
+> already planning to add, and it's sitting right here working. Same
+> with a simple visit streak, tracked for real on the device. And joining
+> class needs zero gate — no PIN, no mode to switch into. The only thing
+> behind a lock is the Family view, for billing and progress."
 
 ## 4. The honest complication (25 sec)
 
@@ -103,11 +112,13 @@ LaTulippe (founder/president) or whoever handles product decisions.
 
 ## Do not do on this call
 
-- Do not quote founder family size, HQ location, current pricing/trial
-  length, or any review-platform rating as fact — none were confirmed
-  directly this pass (see AUDIT.md).
-- Do not imply anything is already built — this is scoping-stage only,
-  unlike the live demo this repo's Piesano's pitch became.
+- Do not quote founder family size, HQ location, or any review-platform
+  rating as fact — none were confirmed directly this pass (see AUDIT.md).
+  Pricing/trial length (14-day trial) IS confirmed — quote it freely.
+- Do not overstate the demo — it's a real, working companion app on
+  sample/illustrative class and library data, not connected to BMA's
+  actual accounts, Zoom, or curriculum. Say that plainly before or during
+  the walkthrough; let "real code, sample data" be the honest frame.
 - Do not promise the Zoom Meeting SDK / embedded-video experience as
   part of the default build — that's explicitly phase 2 (SCOPE.md
   section d, PRICING.md item 4).

@@ -65,6 +65,11 @@ replace or duplicate it:
   across a browser refresh or a different day, needing no backend at
   all. Not a claim this replaces whatever BMA ships; proof it's a small,
   genuinely buildable piece either way.
+- **A real visit streak.** Also demonstrated already, on the Today
+  screen — a device-tracked count of consecutive daily visits, the same
+  kind of lightweight, backend-free engagement signal as the Library
+  resume feature above, and a natural companion to whatever streak/badge
+  system BMA's own dashboard already runs.
 - **Push notifications, beyond just class reminders** — new
   Kids-Teach-Kids content from followed channels, streak/progress
   nudges tied to the existing gamification LaSoft built, and parent-side
