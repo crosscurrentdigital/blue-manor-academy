@@ -262,3 +262,12 @@ explicitly rather than silently replacing what was there before.
   a stale number, not the current live site — 14-day is current, 30-day
   was a prior value. Safe to state 14-day as fact now, not "last publicly
   confirmed" hedged.
+- **The real Parent Library has no progress tracking today** — stated
+  directly by Britton LaTulippe. A family has to remember on their own
+  where they left off in a book, video, or printable; there's no "resume
+  where you stopped" anywhere in the Library today. He said this is
+  planned/being worked on already, though with no confirmed scope or
+  timeline. This is now demonstrated as a real, working feature in this
+  demo's own Library page (see SCOPE.md) — not a claim that it replaces
+  whatever BMA ends up shipping, but proof the idea is genuinely
+  buildable client-side with no backend dependency.

@@ -57,6 +57,14 @@ replace or duplicate it:
   time" friction noted in AUDIT.md section 7, and fits a homeschool
   family's actual usage pattern (car trips, spotty rural connectivity,
   reading before bed) better than a browser tab requires.
+- **"Resume where you left off" in the Library.** Raised directly: BMA's
+  real Parent Library has no progress tracking today — a family has to
+  remember on their own where they stopped in a book or video (AUDIT.md
+  section 10). Confirmed already planned on BMA's side, but demonstrated
+  here as a real, working feature — a per-item saved position, correct
+  across a browser refresh or a different day, needing no backend at
+  all. Not a claim this replaces whatever BMA ships; proof it's a small,
+  genuinely buildable piece either way.
 - **Push notifications, beyond just class reminders** — new
   Kids-Teach-Kids content from followed channels, streak/progress
   nudges tied to the existing gamification LaSoft built, and parent-side
