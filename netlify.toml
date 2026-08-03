@@ -15,6 +15,14 @@
   functions = "netlify/functions"
   command = "npm --prefix app ci && npm --prefix app run build && mkdir -p app/dist/proposal && cp -r proposal/*.md app/dist/proposal/"
 
+# Netlify does NOT auto-install a Function directory's own package.json
+# dependencies (web-push, @netlify/blobs) by default — without this plugin
+# the build fails at the Functions-bundling step with "Could not resolve
+# 'web-push'", since esbuild can't find a dependency that was never
+# installed. Confirmed by an actual failed production build log.
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
