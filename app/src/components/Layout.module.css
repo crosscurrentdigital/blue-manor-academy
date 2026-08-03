@@ -31,20 +31,11 @@
   color: var(--color-ink);
 }
 
-.crest {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.brandLogo {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-md);
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  display: block;
 }
 
 .brandName {

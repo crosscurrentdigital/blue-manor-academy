@@ -1,7 +1,10 @@
 /*
-  Semantic token layer — single "manor" look for this preview (navy/gold,
-  academic-but-warm). Components read these custom properties only, never a
-  hardcoded value, same discipline as the Piesano's build's tokens.css.
+  Semantic token layer — single "manor" look for this preview, matched to
+  Blue Manor Academy's real logo (navy + green, not the gold this started
+  with — accent/success colors below were sampled directly from the actual
+  logo file, not eyeballed). Components read these custom properties only,
+  never a hardcoded value, same discipline as the Piesano's build's
+  tokens.css.
 */
 
 :root {
@@ -38,13 +41,16 @@
   --color-ink-faint: #7a8399;
   --color-border: rgba(20, 33, 61, 0.14);
 
-  --color-accent: #14213d;
-  --color-accent-strong: #0b1730;
+  --color-accent: #242261;
+  --color-accent-strong: #16144a;
   --color-accent-contrast: #f7f4ec;
-  --color-gold: #c9a227;
-  --color-gold-strong: #a9840f;
+  /* Named --color-gold from the earlier placeholder palette; value is now
+     the real logo's green (sampled directly from the file) — kept the
+     name to avoid a churn-y rename across every component that reads it. */
+  --color-gold: #0fa34d;
+  --color-gold-strong: #0c7e3c;
 
-  --color-success: #3f6b3a;
+  --color-success: #0fa34d;
   --color-warning: #a9840f;
   --color-danger: #a3372a;
 }

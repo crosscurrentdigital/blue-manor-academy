@@ -26,7 +26,7 @@ export default defineConfig({
         short_name: 'BMA Companion',
         description:
           "One-tap Zoom join for live classes and clubs, plus offline lesson access — a companion app preview for Blue Manor Academy's existing platform.",
-        theme_color: '#14213d',
+        theme_color: '#242261',
         background_color: '#f7f4ec',
         display: 'standalone',
         start_url: '/',

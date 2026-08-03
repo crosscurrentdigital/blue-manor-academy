@@ -5,6 +5,7 @@ import styles from "./Layout.module.css";
 import { PreviewBanner } from "./PreviewBanner";
 import { ParentToolsButton } from "./ParentToolsButton";
 import { useParentAccess } from "../context/ParentAccessContext";
+import logoUrl from "../assets/brand/logo.jpg";
 
 const SHARED_LINKS = [
   { to: "/", label: "Today", end: true },
@@ -42,10 +43,8 @@ export function Layout({ children }: LayoutProps) {
       <div className={styles.header}>
         <div className={styles.headerInner}>
           <NavLink to="/" className={styles.brand}>
-            <span className={styles.crest} aria-hidden="true">
-              BMA
-            </span>
-            <span className={styles.brandName}>Blue Manor Academy Companion</span>
+            <img src={logoUrl} alt="Blue Manor Academy" className={styles.brandLogo} />
+            <span className={styles.brandName}>Companion</span>
           </NavLink>
 
           <nav className={styles.nav} aria-label="Primary">

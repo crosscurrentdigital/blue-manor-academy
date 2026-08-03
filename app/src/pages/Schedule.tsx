@@ -5,6 +5,7 @@ import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import styles from "./Schedule.module.css";
 import { DEMO_ZOOM_JOIN_URL, SAMPLE_SCHEDULE, formatForViewer, nextOccurrence } from "../lib/schedule";
+import clubsImageUrl from "../assets/content/clubs.png";
 
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
 const KIND_TONE: Record<string, "accent" | "gold" | "neutral"> = { class: "accent", club: "gold", mentorship: "neutral" };
@@ -22,8 +23,10 @@ export function Schedule() {
     <div className={styles.page}>
       <PageHeader
         title="This week's schedule"
-        subtitle="Real class and club names from Blue Manor Academy's own marketing — the day/time here is a sample, shown converted to your device's local time."
+        subtitle="The clubs below are real, straight from Blue Manor Academy's own site — the day/time here is a sample, shown converted to your device's local time."
       />
+
+      <img src={clubsImageUrl} alt="Coding Club, Chess Club, Crochet Club, Reading Club, Stock Market Club, Art Club, Manor Magazine, and more" className={styles.clubsImage} />
 
       <div className={styles.list}>
         {sessions.map(({ session, at }) => (

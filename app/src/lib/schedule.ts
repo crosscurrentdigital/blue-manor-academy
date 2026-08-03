@@ -1,10 +1,14 @@
-// Sample weekly schedule. The class/club NAMES below are real — pulled from
-// Blue Manor Academy's own public marketing (see ../../../proposal/AUDIT.md section 1
-// and 5) — but the specific DAYS/TIMES are illustrative placeholders, not
-// BMA's actual live schedule, since that data isn't public and this preview
-// was built without access to their systems (see AUDIT.md's methodology
-// note). Swapping this file for a real feed from BMA's API is the exact
-// "we just need your credentials" step described in the proposal.
+// Sample weekly schedule. The club NAMES below are real — this exact list
+// (Coding, Chess, Crochet, Reading, Stock Market, Art, Manor Magazine "and
+// more") is taken directly from a screenshot of the live site's own club
+// icon row, provided directly rather than pulled by this session's tooling
+// (see proposal/AUDIT.md's methodology note) — a step up from the earlier,
+// indirect-source-based guess this replaced (which had invented a couple of
+// clubs, like "Animation Club," that aren't actually on the real site).
+// The specific DAYS/TIMES are still illustrative placeholders, not BMA's
+// actual live schedule, since that data isn't public. Swapping this file
+// for a real feed from BMA's API is the exact "we just need your
+// credentials" step described in the proposal.
 //
 // Times are authored in America/Denver (Idaho, where BMA's HQ is listed —
 // see AUDIT.md section 8, itself unconfirmed) and converted to the viewer's
@@ -49,32 +53,21 @@ export const DEMO_ZOOM_JOIN_URL = "https://zoom.us/test";
 
 export const SAMPLE_SCHEDULE: ScheduledSession[] = [
   {
-    id: "early-reader",
-    title: "Early Reader Class",
-    kind: "class",
+    id: "coding-club",
+    title: "Coding Club",
+    kind: "club",
     weekday: 1,
     startHour: 9,
     startMinute: 0,
-    durationMinutes: 30,
-    ageRange: "Ages 5-7",
-    description: "Phonics and read-aloud practice in a small live group.",
-  },
-  {
-    id: "art-club",
-    title: "Art Club",
-    kind: "club",
-    weekday: 2,
-    startHour: 14,
-    startMinute: 0,
     durationMinutes: 45,
-    ageRange: "Ages 6-12",
-    description: "Guided drawing and painting projects, live with other students.",
+    ageRange: "Ages 8-15",
+    description: "Live project-based coding, working alongside other students.",
   },
   {
     id: "chess-club",
     title: "Chess Club",
     kind: "club",
-    weekday: 3,
+    weekday: 2,
     startHour: 15,
     startMinute: 30,
     durationMinutes: 45,
@@ -83,32 +76,21 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     externalLink: { label: "Practice on ChessKid", url: "https://www.chesskid.com/" },
   },
   {
-    id: "animation-club",
-    title: "Animation Club",
+    id: "crochet-club",
+    title: "Crochet Club",
     kind: "club",
-    weekday: 4,
+    weekday: 2,
     startHour: 14,
     startMinute: 0,
     durationMinutes: 45,
-    ageRange: "Ages 10-15",
-    description: "Frame-by-frame animation basics, building toward a Kids-Teach-Kids submission.",
+    ageRange: "Ages 8+",
+    description: "Learn stitches and work on a project together, live.",
   },
   {
-    id: "modeling-3d",
-    title: "3D Modeling & Printing",
-    kind: "class",
-    weekday: 4,
-    startHour: 16,
-    startMinute: 0,
-    durationMinutes: 60,
-    ageRange: "Ages 12+",
-    description: "Design-your-own projects, from CAD basics through a finished print file.",
-  },
-  {
-    id: "read-aloud",
-    title: "Read Aloud Club",
+    id: "reading-club",
+    title: "Reading Club",
     kind: "club",
-    weekday: 5,
+    weekday: 3,
     startHour: 10,
     startMinute: 0,
     durationMinutes: 30,
@@ -116,15 +98,37 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     description: "A rotating chapter book, read together live every week.",
   },
   {
-    id: "parent-qa",
-    title: "Parent Q&A",
-    kind: "mentorship",
+    id: "stock-market-club",
+    title: "Stock Market Club",
+    kind: "club",
+    weekday: 4,
+    startHour: 16,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "Ages 12+",
+    description: "Following real markets together and learning the basics of investing.",
+  },
+  {
+    id: "art-club",
+    title: "Art Club",
+    kind: "club",
+    weekday: 4,
+    startHour: 14,
+    startMinute: 0,
+    durationMinutes: 45,
+    ageRange: "Ages 6-12",
+    description: "Guided drawing and painting projects, live with other students.",
+  },
+  {
+    id: "manor-magazine",
+    title: "Manor Magazine",
+    kind: "club",
     weekday: 5,
     startHour: 12,
     startMinute: 0,
     durationMinutes: 30,
-    ageRange: "Parents",
-    description: "Open office hours — curriculum questions, pacing, anything homeschool-related.",
+    ageRange: "Ages 10+",
+    description: "Student-written and student-edited — a real venue for published work.",
   },
 ];
 

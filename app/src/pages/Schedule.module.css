@@ -4,6 +4,12 @@
   gap: var(--space-5);
 }
 
+.clubsImage {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .list {
   display: flex;
   flex-direction: column;
