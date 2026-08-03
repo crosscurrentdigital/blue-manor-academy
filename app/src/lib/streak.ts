@@ -24,7 +24,12 @@ function readDates(): Set<string> {
 }
 
 function writeDates(dates: Set<string>): void {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify([...dates]));
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify([...dates]));
+  } catch {
+    // Storage disabled/full on this device — streak just won't persist
+    // past this session; not worth surfacing an error for.
+  }
 }
 
 /** Records a visit for today. Idempotent — safe to call on every app mount. */

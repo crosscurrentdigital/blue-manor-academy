@@ -34,11 +34,20 @@ export function getSavedAt(lessonId: string): string | null {
 export function setProgress(lessonId: string, paragraphIndex: number): void {
   const all = readAll();
   all[lessonId] = { paragraphIndex, savedAt: new Date().toISOString() };
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  } catch {
+    // Storage disabled/full on this device — the UI already reflects the
+    // in-memory update for this session; just not persisted across reload.
+  }
 }
 
 export function clearProgress(lessonId: string): void {
   const all = readAll();
   delete all[lessonId];
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  } catch {
+    // Storage disabled/full on this device — nothing further to do.
+  }
 }

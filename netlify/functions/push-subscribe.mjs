@@ -16,8 +16,16 @@ export default async (req) => {
   }
 
   const { subscription } = body || {};
-  if (!subscription || typeof subscription.endpoint !== "string") {
-    return json({ error: "invalid_subscription", detail: "subscription.endpoint is required" }, { status: 400 });
+  if (
+    !subscription ||
+    typeof subscription.endpoint !== "string" ||
+    typeof subscription.keys?.p256dh !== "string" ||
+    typeof subscription.keys?.auth !== "string"
+  ) {
+    return json(
+      { error: "invalid_subscription", detail: "subscription.endpoint and subscription.keys.{p256dh,auth} are required" },
+      { status: 400 },
+    );
   }
 
   const store = subscriptionsStore();

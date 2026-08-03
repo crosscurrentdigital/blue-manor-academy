@@ -210,7 +210,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
  * ambiguously rather than erroring. None of SAMPLE_SCHEDULE's times land
  * in that window — flag before adding schedule data at other times.
  */
-function instantFor(year: number, month: number, day: number, hour: number, minute: number): Date {
+export function instantFor(year: number, month: number, day: number, hour: number, minute: number): Date {
   const pad = (n: number) => String(n).padStart(2, "0");
   const naiveUtcGuess = new Date(`${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00Z`);
   const offsetMinutes = getTimezoneOffsetMinutes(AUTHOR_TIMEZONE, naiveUtcGuess);
@@ -218,7 +218,7 @@ function instantFor(year: number, month: number, day: number, hour: number, minu
 }
 
 /** { year, month (1-12), day, weekday (0=Sun) } for a Date, read in AUTHOR_TIMEZONE. */
-function partsInAuthorZone(date: Date): { year: number; month: number; day: number; weekday: number } {
+export function partsInAuthorZone(date: Date): { year: number; month: number; day: number; weekday: number } {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: AUTHOR_TIMEZONE,
     year: "numeric",
