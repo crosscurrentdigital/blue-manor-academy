@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { recordVisitToday } from "./lib/streak";
 import { PwaInstallProvider } from "./context/PwaInstallContext";
 import { ParentAccessProvider } from "./context/ParentAccessContext";
 import { ParentOnlyRoute } from "./components/ParentOnlyRoute";
@@ -14,6 +16,10 @@ import { UpdateToast } from "./components/UpdateToast";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
+  useEffect(() => {
+    recordVisitToday();
+  }, []);
+
   return (
     <ParentAccessProvider>
       <PwaInstallProvider>

@@ -15,6 +15,9 @@ import {
 import { ensureWebPushSubscription, isIosInstallRequired } from "../lib/webpush";
 import { fetchVapidKey, sendTestPush, subscribePush } from "../lib/pushApi";
 import { downloadIcs } from "../lib/ics";
+import { getCurrentStreak } from "../lib/streak";
+import { SAMPLE_LESSONS } from "../lib/libraryContent";
+import { getProgress } from "../lib/libraryProgress";
 
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
 
@@ -24,6 +27,13 @@ export function Home() {
       (a, b) => a.at.getTime() - b.at.getTime(),
     )[0];
   }, []);
+
+  // Real, device-tracked values — not sample data. Computed on every render
+  // (cheap localStorage reads) so they reflect the visit App.tsx just recorded.
+  const streak = getCurrentStreak();
+  const continuingLesson = SAMPLE_LESSONS.map((lesson) => ({ lesson, progress: getProgress(lesson.id) })).find(
+    ({ lesson, progress }) => progress !== null && progress < lesson.paragraphs.length - 1,
+  );
 
   const [subscribing, setSubscribing] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -91,6 +101,12 @@ export function Home() {
         subtitle="What's next — a live class or club, and today's lesson — one glance, one tap to join."
       />
 
+      {streak > 1 ? (
+        <p className={styles.streakLine}>
+          🔥 {streak}-day streak — real, tracked on this device (not a sample number).
+        </p>
+      ) : null}
+
       <Surface raised padding="lg" className={styles.heroCard}>
         <div className={styles.heroTop}>
           <Badge tone="accent">{KIND_LABEL[upcoming.session.kind]}</Badge>
@@ -145,14 +161,28 @@ export function Home() {
       </section>
 
       <section className={styles.section}>
-        <h3 className={styles.sectionTitle}>Today's lesson</h3>
+        <h3 className={styles.sectionTitle}>{continuingLesson ? "Continue reading" : "Today's lesson"}</h3>
         <Surface padding="md">
-          <p className={styles.pushCopy}>
-            Self-paced reading, available for offline use — see the Library tab.
-          </p>
-          <Link to="/library">
-            <Button variant="secondary">Open Library</Button>
-          </Link>
+          {continuingLesson ? (
+            <>
+              <p className={styles.pushCopy}>
+                You left off partway through <strong>{continuingLesson.lesson.title}</strong> — real, remembered
+                progress, the "resume where you left off" gap BMA's own Parent Library doesn't cover yet.
+              </p>
+              <Link to="/library">
+                <Button variant="primary">Pick up where I left off</Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className={styles.pushCopy}>
+                Self-paced reading, available for offline use — see the Library tab.
+              </p>
+              <Link to="/library">
+                <Button variant="secondary">Open Library</Button>
+              </Link>
+            </>
+          )}
         </Surface>
       </section>
     </div>
