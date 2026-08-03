@@ -167,6 +167,15 @@ export function nextOccurrence(session: ScheduledSession, from: Date = new Date(
   return from;
 }
 
+// Known dormant edge case (caught by audit, not currently reachable): this
+// computes the DST offset from the naive guess instant, not the final one,
+// so a session whose wall-clock time falls inside the one-hour "spring
+// forward" gap or the repeated "fall back" hour resolves ambiguously
+// (silently normalizes forward, or always picks the first occurrence)
+// rather than erroring. None of SAMPLE_SCHEDULE's times (9:00, 14:00,
+// 15:30, 16:00, 10:00, 12:00) land in that window, so this doesn't affect
+// the current demo — flag before adding schedule data at other times.
+
 /** Minutes to ADD to a UTC-labeled instant to get the true UTC instant for the same wall-clock time in `timeZone`. */
 function getTimezoneOffsetMinutes(timeZone: string, at: Date): number {
   const dtf = new Intl.DateTimeFormat("en-US", {

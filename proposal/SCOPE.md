@@ -222,6 +222,14 @@ Stated plainly:
   — don't quote either version anywhere customer-facing.
 - **No aggregate review-platform rating found** (AUDIT.md section 7) —
   don't quote one.
+- **The demo's test-send push endpoint is intentionally unauthenticated**
+  (no admin gate, unlike the real build's design) — caught in an internal
+  audit: anyone holding a previously-leaked `PushSubscription` object
+  (endpoint + keys, not something exposed in this app's own UI) could
+  trigger a real notification to that device, with no rate limit. Fine
+  for a single-user pitch demo; the real build's admin-gated send
+  (section (f)) doesn't have this gap, and it isn't something to carry
+  into anything beyond the demo.
 
 ## j. Could this just be a feature request to LaSoft instead?
 

@@ -41,7 +41,7 @@ export function Family() {
             </div>
             <p className={styles.next}>Next: {child.nextSession}</p>
             <Button variant="secondary" onClick={handOff}>
-              Done — lock &amp; hand device to {child.name}
+              Done — lock parent tools
             </Button>
           </Surface>
         ))}
