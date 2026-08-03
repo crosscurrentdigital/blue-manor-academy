@@ -118,7 +118,7 @@ yet.
   | Piece | Size | Why |
   |---|---|---|
   | "Today" screen (curriculum + class data) | Medium→Large | The single biggest swing factor — depends entirely on whether BMA's API is clean or undocumented/needs new endpoints on their side |
-  | Zoom deep-link join + timezone scheduling | Small–Medium | Well-understood problem, no SDK/review overhead |
+  | Zoom deep-link join + timezone/recurrence scheduling | Small–Medium | Already built and verified in the demo (real Nth-weekday-of-month and seasonal-range recurrence, real `.ics` export) — remaining work is wiring to BMA's real data feed, not the scheduling logic itself |
   | Push notifications | Medium | Reuses the Web Push/VAPID pattern from this shop's prior builds (Piesano's, Elks Theatre) rather than starting from zero |
   | Offline curriculum caching | Medium–Large | New pattern for this shop — no prior build has done offline content caching |
   | PIN-gated Family/billing view | Small–Medium | Simpler than real auth/role separation — one gate on one page, not a mode covering the whole app |

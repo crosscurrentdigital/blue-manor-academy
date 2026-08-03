@@ -19,6 +19,19 @@
 
 export type SessionKind = "class" | "club" | "mentorship";
 
+// Real recurrence, actually implemented — not just displayed as text. A
+// real enrolled family's schedule (proposal/AUDIT.md section 10) recurs
+// three different ways: plain weekly, "Nth weekday of the month" (e.g.
+// Crochet Club: 3rd Monday), and weekly-within-a-date-range (e.g.
+// Foundations of Illustration: May-Aug, Tuesdays). This models all three
+// for real, including a correct RRULE export (see lib/ics.ts) — the
+// earlier version of this file only displayed the real cadence as a text
+// label next to a fake simple-weekly simulation; this is the fix.
+export type Recurrence =
+  | { type: "weekly" }
+  | { type: "monthly-nth-weekday"; nth: 1 | 2 | 3 | 4 | -1 }
+  | { type: "seasonal-weekly"; startMonth: number; startDay: number; endMonth: number; endDay: number };
+
 export interface ScheduledSession {
   id: string;
   title: string;
@@ -30,6 +43,7 @@ export interface ScheduledSession {
   durationMinutes: number;
   ageRange: string;
   description: string;
+  recurrence: Recurrence;
   /**
    * Optional secondary deep link for a session with its own between-class
    * platform — e.g. Chess Club's ChessKid link below. Same reasoning as
@@ -44,12 +58,9 @@ export interface ScheduledSession {
   /**
    * The real recurrence text as actually seen on a live enrolled family's
    * schedule (e.g. "Year-Round, 3rd Monday, 1 PM CST" — see
-   * ../../../proposal/AUDIT.md section 10). Shown as-is for authenticity.
-   * The weekday/startHour/startMinute fields above are a simplified
-   * weekly approximation for this demo's join-flow simulation — a real
-   * build needs Nth-weekday-of-month and seasonal-date-range recurrence,
-   * which this simple weekly scheduler doesn't implement (a real, priced
-   * scope item, not a bug here).
+   * ../../../proposal/AUDIT.md section 10). Shown as-is for authenticity,
+   * alongside the now-real recurrence math above (the `recurrence` field
+   * actually implements what this string describes).
    */
   realCadence?: string;
 }
@@ -80,6 +91,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 30,
     ageRange: "All ages",
     description: "Open questions, live — bring whatever you're stuck on.",
+    recurrence: { type: "weekly" },
     realCadence: "Year-Round, Monday, 2:30 PM CST",
   },
   {
@@ -93,6 +105,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     ageRange: "Ages 8-14",
     description: "Casual play and light instruction — bring your own board or play on-screen.",
     externalLink: { label: "Practice on ChessKid", url: "https://www.chesskid.com/" },
+    recurrence: { type: "weekly" },
     realCadence: "Year-Round, Wednesday, 10 AM CST",
   },
   {
@@ -105,6 +118,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 12+",
     description: "Design-your-own projects, CAD basics through a finished model.",
+    recurrence: { type: "monthly-nth-weekday", nth: 3 },
     realCadence: "Year-Round, 3rd Wednesday, 2 PM CST",
   },
   {
@@ -117,6 +131,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "All ages",
     description: "Structured, camera-on social time with other students.",
+    recurrence: { type: "monthly-nth-weekday", nth: 1 },
     realCadence: "Year-Round, 1st Friday, 2 PM CST",
   },
   {
@@ -129,6 +144,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 12+",
     description: "Following real markets together and learning the basics of investing.",
+    recurrence: { type: "monthly-nth-weekday", nth: 3 },
     realCadence: "Year-Round, 3rd Friday, 2 PM CST",
   },
   {
@@ -141,6 +157,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 10+",
     description: "Public speaking practice, live in front of a small group.",
+    recurrence: { type: "monthly-nth-weekday", nth: 4 },
     realCadence: "Year-Round, 4th Friday, 2 PM CST",
   },
   {
@@ -153,6 +170,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 8+",
     description: "Learn stitches and work on a project together, live.",
+    recurrence: { type: "monthly-nth-weekday", nth: 3 },
     realCadence: "Year-Round, 3rd Monday, 1 PM CST",
   },
   {
@@ -165,6 +183,7 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "Ages 8+",
     description: "Guided drawing fundamentals, live with other students.",
+    recurrence: { type: "seasonal-weekly", startMonth: 5, startDay: 1, endMonth: 8, endDay: 31 },
     realCadence: "May-Aug, Tuesday, 11 AM CST",
   },
   {
@@ -177,57 +196,106 @@ export const SAMPLE_SCHEDULE: ScheduledSession[] = [
     durationMinutes: 45,
     ageRange: "All ages",
     description: "Real-world etiquette, taught live and put into practice.",
+    recurrence: { type: "seasonal-weekly", startMonth: 9, startDay: 1, endMonth: 12, endDay: 31 },
     realCadence: "Sept-Dec, Tuesday, 2 PM CST",
   },
 ];
 
-/** Next occurrence of a weekly session, computed correctly across the DST boundary in AUTHOR_TIMEZONE. */
-export function nextOccurrence(session: ScheduledSession, from: Date = new Date()): Date {
-  for (let dayOffset = 0; dayOffset < 8; dayOffset++) {
-    const candidate = new Date(from);
-    candidate.setDate(candidate.getDate() + dayOffset);
-
-    const partsAtMidnight = new Intl.DateTimeFormat("en-US", {
-      timeZone: AUTHOR_TIMEZONE,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      weekday: "short",
-    }).formatToParts(candidate);
-
-    const weekdayShort = partsAtMidnight.find((p) => p.type === "weekday")?.value ?? "";
-    const weekdayIndex = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(weekdayShort);
-    if (weekdayIndex !== session.weekday) continue;
-
-    const year = partsAtMidnight.find((p) => p.type === "year")!.value;
-    const month = partsAtMidnight.find((p) => p.type === "month")!.value;
-    const day = partsAtMidnight.find((p) => p.type === "day")!.value;
-
-    // Build the session start as a UTC instant by asking "what UTC time
-    // corresponds to HH:MM in AUTHOR_TIMEZONE on this date" — done by
-    // formatting a UTC guess in AUTHOR_TIMEZONE and correcting the offset.
-    const naiveUtcGuess = new Date(
-      `${year}-${month}-${day}T${String(session.startHour).padStart(2, "0")}:${String(session.startMinute).padStart(2, "0")}:00Z`,
-    );
-    const offsetMinutes = getTimezoneOffsetMinutes(AUTHOR_TIMEZONE, naiveUtcGuess);
-    const actual = new Date(naiveUtcGuess.getTime() + offsetMinutes * 60_000);
-
-    if (actual.getTime() >= from.getTime() - session.durationMinutes * 60_000) {
-      return actual;
-    }
-  }
-  // Fallback (shouldn't happen with an 8-day search window).
-  return from;
+/**
+ * Correctly offset-corrected UTC instant for HH:MM on a given Y-M-D in
+ * AUTHOR_TIMEZONE. Shared by every recurrence type below. Known dormant
+ * edge case (caught by audit): computes the DST offset from the naive
+ * guess instant, not the final one, so a wall-clock time inside the
+ * one-hour "spring forward" gap or the repeated "fall back" hour resolves
+ * ambiguously rather than erroring. None of SAMPLE_SCHEDULE's times land
+ * in that window — flag before adding schedule data at other times.
+ */
+function instantFor(year: number, month: number, day: number, hour: number, minute: number): Date {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const naiveUtcGuess = new Date(`${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00Z`);
+  const offsetMinutes = getTimezoneOffsetMinutes(AUTHOR_TIMEZONE, naiveUtcGuess);
+  return new Date(naiveUtcGuess.getTime() + offsetMinutes * 60_000);
 }
 
-// Known dormant edge case (caught by audit, not currently reachable): this
-// computes the DST offset from the naive guess instant, not the final one,
-// so a session whose wall-clock time falls inside the one-hour "spring
-// forward" gap or the repeated "fall back" hour resolves ambiguously
-// (silently normalizes forward, or always picks the first occurrence)
-// rather than erroring. None of SAMPLE_SCHEDULE's times (9:00, 14:00,
-// 15:30, 16:00, 10:00, 12:00) land in that window, so this doesn't affect
-// the current demo — flag before adding schedule data at other times.
+/** { year, month (1-12), day, weekday (0=Sun) } for a Date, read in AUTHOR_TIMEZONE. */
+function partsInAuthorZone(date: Date): { year: number; month: number; day: number; weekday: number } {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: AUTHOR_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+  }).formatToParts(date);
+  const weekdayShort = parts.find((p) => p.type === "weekday")!.value;
+  return {
+    year: Number(parts.find((p) => p.type === "year")!.value),
+    month: Number(parts.find((p) => p.type === "month")!.value),
+    day: Number(parts.find((p) => p.type === "day")!.value),
+    weekday: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(weekdayShort),
+  };
+}
+
+function daysInMonth(year: number, month: number): number {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate();
+}
+
+/** Calendar day-of-month for the Nth (1-4) or last (-1) occurrence of `weekday` in a given month. */
+function nthWeekdayOfMonthDay(year: number, month: number, weekday: number, nth: 1 | 2 | 3 | 4 | -1): number {
+  const firstOfMonthWeekday = partsInAuthorZone(instantFor(year, month, 1, 12, 0)).weekday;
+  const firstOccurrence = 1 + ((weekday - firstOfMonthWeekday + 7) % 7);
+  if (nth !== -1) return firstOccurrence + (nth - 1) * 7;
+  const total = daysInMonth(year, month);
+  let last = firstOccurrence;
+  while (last + 7 <= total) last += 7;
+  return last;
+}
+
+function isInSeason(month: number, day: number, r: { startMonth: number; startDay: number; endMonth: number; endDay: number }): boolean {
+  const afterStart = month > r.startMonth || (month === r.startMonth && day >= r.startDay);
+  const beforeEnd = month < r.endMonth || (month === r.endMonth && day <= r.endDay);
+  // Non-wrapping range only (e.g. May-Aug, Sept-Dec) — matches every
+  // SAMPLE_SCHEDULE entry; a range that crosses the year boundary (e.g.
+  // "Nov-Feb") isn't handled, flagged rather than silently wrong.
+  return afterStart && beforeEnd;
+}
+
+/** Next occurrence of a session, computed correctly across the DST boundary in AUTHOR_TIMEZONE, honoring its real recurrence rule. */
+export function nextOccurrence(session: ScheduledSession, from: Date = new Date()): Date {
+  const graceMs = session.durationMinutes * 60_000;
+  const recurrence = session.recurrence;
+
+  if (recurrence.type === "monthly-nth-weekday") {
+    const start = partsInAuthorZone(from);
+    for (let monthOffset = 0; monthOffset < 14; monthOffset++) {
+      const totalMonth = start.month - 1 + monthOffset;
+      const year = start.year + Math.floor(totalMonth / 12);
+      const month = (totalMonth % 12) + 1;
+      const day = nthWeekdayOfMonthDay(year, month, session.weekday, recurrence.nth);
+      const actual = instantFor(year, month, day, session.startHour, session.startMinute);
+      if (actual.getTime() >= from.getTime() - graceMs) return actual;
+    }
+    return from;
+  }
+
+  // "weekly" and "seasonal-weekly" both walk day by day — seasonal-weekly
+  // just additionally requires the candidate to fall in-range, and keeps
+  // searching (rather than returning) on an out-of-season match. A year+
+  // window comfortably covers "next in-season occurrence" even for a
+  // narrow season searched from just after it ends.
+  const searchDays = recurrence.type === "seasonal-weekly" ? 371 : 8;
+  for (let dayOffset = 0; dayOffset < searchDays; dayOffset++) {
+    const candidate = new Date(from);
+    candidate.setDate(candidate.getDate() + dayOffset);
+    const { year, month, day, weekday } = partsInAuthorZone(candidate);
+    if (weekday !== session.weekday) continue;
+    if (recurrence.type === "seasonal-weekly" && !isInSeason(month, day, recurrence)) continue;
+
+    const actual = instantFor(year, month, day, session.startHour, session.startMinute);
+    if (actual.getTime() >= from.getTime() - graceMs) return actual;
+  }
+  // Fallback (shouldn't happen with these search windows).
+  return from;
+}
 
 /** Minutes to ADD to a UTC-labeled instant to get the true UTC instant for the same wall-clock time in `timeZone`. */
 function getTimezoneOffsetMinutes(timeZone: string, at: Date): number {

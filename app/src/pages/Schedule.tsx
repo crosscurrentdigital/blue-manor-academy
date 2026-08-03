@@ -5,6 +5,7 @@ import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import styles from "./Schedule.module.css";
 import { DEMO_ZOOM_JOIN_URL, SAMPLE_SCHEDULE, formatForViewer, nextOccurrence } from "../lib/schedule";
+import { downloadIcs } from "../lib/ics";
 import clubsImageUrl from "../assets/content/clubs.png";
 
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
@@ -23,7 +24,7 @@ export function Schedule() {
     <div className={styles.page}>
       <PageHeader
         title="This week's schedule"
-        subtitle="A real enrolled family's actual Classes & Clubs schedule, seen directly — cadence shown as-is below each session. The day/time used for the live countdown is this demo's simplified weekly approximation, converted to your device's local time."
+        subtitle="A real enrolled family's actual Classes & Clubs schedule, seen directly. The countdown below actually implements each session's real recurrence — Nth-weekday-of-month, seasonal date ranges, or plain weekly — converted to your device's local time."
       />
 
       <img src={clubsImageUrl} alt="Coding Club, Chess Club, Crochet Club, Reading Club, Stock Market Club, Art Club, Manor Magazine, and more — Blue Manor Academy's full club offering" className={styles.clubsImage} />
@@ -50,6 +51,9 @@ export function Schedule() {
                   <Button variant="ghost">{session.externalLink.label}</Button>
                 </a>
               ) : null}
+              <Button variant="ghost" onClick={() => downloadIcs(session)}>
+                Add to Calendar
+              </Button>
             </div>
           </Surface>
         ))}

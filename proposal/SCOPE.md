@@ -177,10 +177,14 @@ competes with them.
   scope for this build.
 - **Real class/club schedule data and its recurrence pattern** (AUDIT.md
   section 10) — confirmed real classes recur on an Nth-weekday-of-month
-  or seasonal-date-range basis, not simple weekly repeats, which is a
-  bigger scheduling-logic problem than this demo's simplified weekly
-  model assumed. Needs resolving before the "Today"/Schedule screens'
-  underlying logic can be priced as a fixed build.
+  or seasonal-date-range basis, not simple weekly repeats. **This is
+  already solved in the demo, not just flagged**: the join countdown and
+  a real "Add to Calendar" export (a genuine `.ics` file, RFC 5545
+  `RRULE` — `BYDAY=3MO` for "3rd Monday," a bounded `UNTIL` for a
+  seasonal range) both run on the actual recurrence rule, verified
+  against the real cadence in section 10. What's still open is only the
+  *data feed* — reading this from BMA's real system instead of this
+  demo's hand-entered sample — not the underlying scheduling logic.
 - **Founder/company facts to confirm before any customer-facing copy** —
   family size, and which HQ/location is current (AUDIT.md section 8).
 

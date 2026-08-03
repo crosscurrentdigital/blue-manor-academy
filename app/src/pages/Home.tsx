@@ -14,6 +14,7 @@ import {
 } from "../lib/schedule";
 import { ensureWebPushSubscription, isIosInstallRequired } from "../lib/webpush";
 import { fetchVapidKey, sendTestPush, subscribePush } from "../lib/pushApi";
+import { downloadIcs } from "../lib/ics";
 
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
 
@@ -113,6 +114,9 @@ export function Home() {
               <Button variant="ghost">{upcoming.session.externalLink.label}</Button>
             </a>
           ) : null}
+          <Button variant="ghost" onClick={() => downloadIcs(upcoming.session)}>
+            Add to Calendar
+          </Button>
           <Link to="/schedule">
             <Button variant="secondary">See full schedule</Button>
           </Link>
