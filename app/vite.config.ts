@@ -37,6 +37,23 @@ export default defineConfig({
           { src: '/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
           { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'any' },
         ],
+        // Long-press the installed icon for quick actions. No dedicated
+        // shortcut icons — reusing the existing app icon (shortcut icons
+        // are optional in the spec; platforms fall back sensibly).
+        shortcuts: [
+          {
+            name: 'Join now',
+            short_name: 'Join now',
+            description: 'Jump straight to whatever class or club is happening next',
+            url: '/join-now',
+          },
+          {
+            name: 'Library',
+            short_name: 'Library',
+            description: 'Open the Library',
+            url: '/library',
+          },
+        ],
       },
     }),
   ],

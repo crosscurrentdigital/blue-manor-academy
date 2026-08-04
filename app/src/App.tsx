@@ -7,6 +7,7 @@ import { ParentAccessProvider } from "./context/ParentAccessContext";
 import { ParentOnlyRoute } from "./components/ParentOnlyRoute";
 import { Home } from "./pages/Home";
 import { Schedule } from "./pages/Schedule";
+import { JoinNow } from "./pages/JoinNow";
 import { Library } from "./pages/Library";
 import { KidsTeachKids } from "./pages/KidsTeachKids";
 import { Family } from "./pages/Family";
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/schedule" element={<Schedule />} />
+            <Route path="/join-now" element={<JoinNow />} />
             <Route path="/library" element={<Library />} />
             <Route path="/kids-teach-kids" element={<KidsTeachKids />} />
             <Route

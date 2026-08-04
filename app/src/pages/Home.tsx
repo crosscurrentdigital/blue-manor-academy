@@ -10,7 +10,7 @@ import {
   SAMPLE_SCHEDULE,
   formatForViewer,
   minutesUntil,
-  nextOccurrence,
+  nextUpcoming,
 } from "../lib/schedule";
 import { ensureWebPushSubscription, isIosInstallRequired } from "../lib/webpush";
 import { fetchVapidKey, sendTestPush, subscribePush } from "../lib/pushApi";
@@ -22,11 +22,7 @@ import { getProgress } from "../lib/libraryProgress";
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
 
 export function Home() {
-  const upcoming = useMemo(() => {
-    return SAMPLE_SCHEDULE.map((session) => ({ session, at: nextOccurrence(session) })).sort(
-      (a, b) => a.at.getTime() - b.at.getTime(),
-    )[0];
-  }, []);
+  const upcoming = useMemo(() => nextUpcoming(SAMPLE_SCHEDULE), []);
 
   // Real, device-tracked values — not sample data. Computed on every render
   // (cheap localStorage reads) so they reflect the visit App.tsx just recorded.

@@ -334,3 +334,10 @@ export function formatForViewer(date: Date): string {
 export function minutesUntil(date: Date, from: Date = new Date()): number {
   return Math.round((date.getTime() - from.getTime()) / 60_000);
 }
+
+/** The single soonest occurrence across a list of sessions — shared by the Today screen and the Join Now shortcut. */
+export function nextUpcoming(sessions: ScheduledSession[], from: Date = new Date()): { session: ScheduledSession; at: Date } {
+  return sessions
+    .map((session) => ({ session, at: nextOccurrence(session, from) }))
+    .sort((a, b) => a.at.getTime() - b.at.getTime())[0];
+}
