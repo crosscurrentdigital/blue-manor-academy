@@ -80,8 +80,8 @@ function foldIcsLine(line: string): string {
   return chunks.join("\r\n ");
 }
 
-/** Builds a complete, real .ics file (single VEVENT) for a session's real recurrence. */
-export function buildIcs(session: ScheduledSession): string {
+/** Builds one session's BEGIN:VEVENT...END:VEVENT block — pre-fold, pre-join. */
+function buildVevent(session: ScheduledSession): string[] {
   const start = nextOccurrence(session);
   const end = new Date(start.getTime() + session.durationMinutes * 60_000);
   const rrule = buildRrule(session, start);
@@ -92,10 +92,7 @@ export function buildIcs(session: ScheduledSession): string {
       `Real recurrence (${session.realCadence ?? "weekly"}), sample join link, not BMA's live data.`,
   );
 
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Blue Manor Academy Companion (demo)//EN",
+  return [
     "BEGIN:VEVENT",
     `UID:${uid}`,
     `DTSTAMP:${toIcsUtc(new Date())}`,
@@ -106,21 +103,51 @@ export function buildIcs(session: ScheduledSession): string {
     `DESCRIPTION:${description}`,
     `LOCATION:${escapeIcsText(DEMO_ZOOM_JOIN_URL)}`,
     "END:VEVENT",
-    "END:VCALENDAR",
   ].filter((line): line is string => line !== null);
+}
+
+/**
+ * Builds a complete, real .ics file with one VEVENT per session — each
+ * with its own correct RRULE for its own recurrence. UIDs are already
+ * namespaced per session id (`${session.id}@...`), so bundling many
+ * sessions into one VCALENDAR is safe: no UID collisions across a real
+ * family's whole real schedule.
+ */
+export function buildIcsForSessions(sessions: ScheduledSession[]): string {
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Blue Manor Academy Companion (demo)//EN",
+    ...sessions.flatMap(buildVevent),
+    "END:VCALENDAR",
+  ];
 
   return lines.map(foldIcsLine).join("\r\n");
 }
 
-/** Triggers a real .ics download for a session — no server round trip. */
-export function downloadIcs(session: ScheduledSession): void {
-  const blob = new Blob([buildIcs(session)], { type: "text/calendar;charset=utf-8" });
+/** Builds a complete, real .ics file (single VEVENT) for a session's real recurrence. */
+export function buildIcs(session: ScheduledSession): string {
+  return buildIcsForSessions([session]);
+}
+
+function triggerIcsDownload(content: string, filename: string): void {
+  const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `${session.id}.ics`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+}
+
+/** Triggers a real .ics download for a session — no server round trip. */
+export function downloadIcs(session: ScheduledSession): void {
+  triggerIcsDownload(buildIcs(session), `${session.id}.ics`);
+}
+
+/** Triggers a real .ics download containing every given session — one file, no server round trip. */
+export function downloadIcsForWeek(sessions: ScheduledSession[]): void {
+  triggerIcsDownload(buildIcsForSessions(sessions), "blue-manor-academy-week.ics");
 }

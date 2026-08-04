@@ -5,7 +5,7 @@ import { Badge } from "../components/Badge";
 import { Button } from "../components/Button";
 import styles from "./Schedule.module.css";
 import { DEMO_ZOOM_JOIN_URL, SAMPLE_SCHEDULE, formatForViewer, nextOccurrence } from "../lib/schedule";
-import { downloadIcs } from "../lib/ics";
+import { downloadIcs, downloadIcsForWeek } from "../lib/ics";
 import clubsImageUrl from "../assets/content/clubs.png";
 
 const KIND_LABEL: Record<string, string> = { class: "Live class", club: "Club", mentorship: "Mentorship" };
@@ -25,6 +25,11 @@ export function Schedule() {
       <PageHeader
         title="This week's schedule"
         subtitle="A real enrolled family's actual Classes & Clubs schedule, seen directly. The countdown below actually implements each session's real recurrence — Nth-weekday-of-month, seasonal date ranges, or plain weekly — converted to your device's local time."
+        actions={
+          <Button variant="secondary" onClick={() => downloadIcsForWeek(SAMPLE_SCHEDULE)}>
+            Add my whole week to Calendar
+          </Button>
+        }
       />
 
       <img src={clubsImageUrl} alt="Coding Club, Chess Club, Crochet Club, Reading Club, Stock Market Club, Art Club, Manor Magazine, and more — Blue Manor Academy's full club offering" className={styles.clubsImage} />
